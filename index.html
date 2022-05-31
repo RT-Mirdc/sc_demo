@@ -1,123 +1,53 @@
-
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>金屬中心SC-Web team demo</title>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- Bootstrap -->
-		<!-- HTML5 shim 和 Respond.js 讓IE8支援HTML5元素和媒體查詢 -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
-		<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-		<style type="text/css">
-      #abgne-20110714 {
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<title> 页面名称 </title>
+<style type="text/css">
+.box {
+	border: 2px solid #0ff;
+	width: 800px;
+	height: 400px;
+	padding: 5px;
+	background: #00496B;
+}
+.box .div1 {
 	position: relative;
-	width: 288px;
-	padding: 6px;
-	background: #303030;
-	overflow: hidden;
-}
-#abgne-20110714 img {
-	display: block;
-	border: 1px solid #666;
-}
-#abgne-20110714 .content {
-	clear: both;
-	height: 142px;
-	overflow: hidden;
-}
-#abgne-20110714 .content .box {
-	position: relative;
-	width: 188px;
+	width: 400px;
+	height: 200px;
 	float: left;
 }
-#abgne-20110714 .content .side {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	float: right;
-	width: 93px;
+.box .div2 {
+	position: relative;
+	width: 800px;
+	height: 3px;
+	top:50%;
+	height: 1px;
+	background: linear-gradient(90deg, #00496B, #00FBFF, #00496B);
 }
-#abgne-20110714 .content .side li.first {
-	zoom:1;
-	padding: 0 0 3px;
-	*padding: 0;
+.box .div3 {
+	position: relative;
+	width: 1px;
+	height: 400px;
+	left:50%;
+	background: linear-gradient(0deg,  #00496B, #00FBFF, #00496B);
 }
-#abgne-20110714 .box img {
-	position: absolute;
-	top: 0;
-}
-#abgne-20110714 .box h3 {
-	margin: 0;
-	position: absolute;
-	top: 102px;
-	width: 190px;
-	color: #fff;
-	padding: 8px 0;
-	height: 22px;
-	text-align: center;
-	z-index: 1000;
-	overflow: hidden;
-}
-#abgne-20110714 .box .mask {
-	position: absolute;
-	background: #000;
-	top: 102px;
-	height: 38px;
-	width: 190px;
-	z-index: 999;
-}
-#abgne-20110714 .list {
-	clear: both;
-	margin: 0;
-	padding: 3px 0 0;
-	list-style: none;
-	width: 100%;
-}
-#abgne-20110714 .list li {
-	float: left;
-	width: 93px;
-	padding-right: 4px;
-}
-#abgne-20110714 .list .last {
-	padding: 0 0 0 1px;
-}
-#abgne-20110714 .box img {
-	width: 188px;
-	height: 138px;
-}
-#abgne-20110714 .side img, #abgne-20110714 .list img {
-	width: 91px;
-	height: 66px;
-}
-		</style>
-	</head>
-	<body>
-   <div id="abgne-20110714">
-		<div class="content">
-			<div class="box">
-				<h3 id="abgne-title">正面照</h3>
-				<a id="abgne-link" href="#">
-					<!--<img id="abgne-img" src="images/05.jpg" />-->
-				<iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat=22.615&lon=120.314&detailLat=22.615&detailLon=120.314&width=650&height=450&zoom=5&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
-				</a>
-				<div class="mask"></div>
-			</div>
-			<ul class="side">
-				<li class="first"><a href="#"><img src="images/05.jpg" alt="正面照" /></a></li>
-				<li><a href="#"><img src="images/04.jpg" alt="側面照" /></a></a></li>
-			</ul>
-		</div>
-		<ul class="list">
-			<li><a href="#"><img src="images/03.jpg" alt="正面高角度" /></a></li>
-			<li><a href="#"><img src="images/02.jpg" alt="大街" /></a></li>
-			<li class="last"><a href="#"><img src="images/01.jpg" alt="內部大廳照" /></a></li>
-		</ul>
+</style>
+</head>
+<body>
+ 
+<div class="box">
+	<div class='div1'>
+	<iframe width="650" height="450" src="https://embed.windy.com/embed2.html?lat=22.615&lon=120.314&detailLat=22.615&detailLon=120.314&width=650&height=450&zoom=5&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
 	</div>
-	</body>
-	</html>
+	<div class='div1'>
+	
+	</div>
+	<div class='div1'></div>
+	<div class='div1'></div>
+	<div class='div2'></div>
+	<div class='div3'></div>
+</div>
+</body>
+</html>
