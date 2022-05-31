@@ -10,7 +10,7 @@ display: flex;
 flex-flow:column nowrap;
 width: 1000px;/*任意改變長寬*/
 height: 600px;
-background:#ccc;
+/*background:#ccc;*/
 }
 .parent{
 display: flex;
@@ -19,11 +19,13 @@ flex:1 1 0;/*元素彈性*/
 text-align: center;
 }
 .container .parent:first-child{margin-bottom: 10px;}
+.container .parent:nth-child(2){margin-bottom: 10px;}
 .item{
 flex:1 1 0;/*元素彈性*/
 background: green;
 }
 .parent .item:first-child{margin-right: 10px;}
+.parent .item:nth-child(2){margin-right: 10px;}
 </style>
 </head>
 <body>
@@ -31,26 +33,31 @@ background: green;
  <div class="container" >
 <div class="parent">
 <div class="item">
-	<iframe width="450" height="300" src="https://embed.windy.com/embed2.html?lat=22.162&lon=120.322&detailLat=22.620&detailLon=120.310&width=650&height=450&zoom=8&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
+	<iframe width="500" height="350" src="https://embed.windy.com/embed2.html?lat=22.162&lon=120.322&detailLat=22.620&detailLon=120.310&width=650&height=450&zoom=8&level=surface&overlay=rain&product=ecmwf&menu=&message=&marker=true&calendar=now&pressure=true&type=map&location=coordinates&detail=true&metricWind=default&metricTemp=default&radarRange=-1" frameborder="0"></iframe>
 	</div>
 <div class="item">
-	<img width="450" height="300" src="https://cctv-ss05.thb.gov.tw/T1-371K+450" alt="高雄市仁武區高楠公路（近八德二路）-南向（順樁）" onerror="this.src='https://tw.live/assets/maintenance.jpg';">
+	<img width="500" height="350" src="https://cctv-ss05.thb.gov.tw/T1-371K+450" alt="高雄市仁武區高楠公路（近八德二路）-南向（順樁）" onerror="this.src='https://tw.live/assets/maintenance.jpg';">
 	</div>
 	<div class="item">
-	<img width="450" height="300" src="https://cctv3.kctmc.nat.gov.tw/e4062e75/" alt="高楠公路、楠陽路" onerror="this.src='https://tw.live/assets/maintenance.jpg';">
+	<img width="500" height="350" src="https://cctv3.kctmc.nat.gov.tw/e4062e75/" alt="高楠公路、楠陽路" onerror="this.src='https://tw.live/assets/maintenance.jpg';">
 	
 	</div>
 </div>
 <div class="parent">
 
 <div class="item">
-	<img width="450" height="300" src="https://cctv3.kctmc.nat.gov.tw/f640fde7/" alt="高楠公路、楠陽路" onerror="this.src='https://tw.live/assets/maintenance.jpg';">
+	<img width="500" height="350" src="https://cctv3.kctmc.nat.gov.tw/f640fde7/" alt="高楠公路、楠陽路" onerror="this.src='https://tw.live/assets/maintenance.jpg';">
 	</div>
 	
 	<div class="item">
-	<img width="450" height="300" src="http://192.168.101.221:8080/" alt="中心內部" onerror="this.src='https://tw.live/assets/maintenance.jpg';">
+	<img width="500" height="350" src="http://192.168.101.221:8080/" alt="中心內部" onerror="this.src='https://tw.live/assets/maintenance.jpg';">
 	
 	</div>
+	<div class="item">
+		<iframe width="500" height="350"
+src="https://www.youtube.com/watch?v=1vVCtk5OXVk?autoplay=1&mute=1">
+</iframe>
+		</div>
 
 </div>
 
