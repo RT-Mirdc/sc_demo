@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WebAR 眼鏡試戴 (電商商品切換版)</title>
+  <style>
+    html, body { margin: 0; padding: 0; height: 100%; background: #111; color: #fff; font-family: system-ui, sans-serif; }
+    .app { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+    #videoWrap { position: absolute; inset: 0; display: grid; place-items: center; }
+    #inputVideo { max-width: 100%; max-height: 100%; transform: scaleX(-1); }
+    #threeWrap { position: absolute; inset: 0; pointer-events: none; }
+    .ui { position: absolute; left: 12px; right: 12px; bottom: 12px; display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); z-index: 10; }
+    .card { background: rgba(0,0,0,.35); backdrop-filter: blur(6px); border-radius: 16px; padding: 10px 12px; }
+    select, button { width: 100%; padding: 8px; border-radius: 8px; border: none; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div id="videoWrap">
+      <video id="inputVideo" playsinline muted></video>
+    </div>
+    <div id="threeWrap"></div>
+
+    <div class="ui">
+      <div class="card">
+        <label>選擇商品</label>
+        <select id="productSel"></select>
+      </div>
+      <div class="card">
+        <button id="buyBtn">立即購買</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.158.0/build/three.module.js';
+    import { GLTFLoader } from 'https://unpkg.com/three@0.158.0/examples/jsm/loaders/GLTFLoader.js';
+
+    const video = document.getElementById('inputVideo');
+    const productSel = document.getElementById('productSel');
+    const buyBtn = document.getElementById('buyBtn');
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('threeWrap').appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const cameraOrtho = new THREE.OrthographicCamera(0, window.innerWidth, window.innerHeight, 0, -1000, 1000);
+    scene.add(cameraOrtho);
+    scene.add(new THREE.AmbientLight(0xffffff, 1));
+
+    let glassesModel;
+    const loader = new GLTFLoader();
+
+    const products = [
+      { name: '經典黑框', model: 'https://example.com/models/black.glb', url: 'https://shop.com/p/black' },
+      { name: '金色飛行員', model: 'https://example.com/models/gold.glb', url: 'https://shop.com/p/gold' },
+      { name: '透明圓框', model: 'https://example.com/models/clear.glb', url: 'https://shop.com/p/clear' }
+    ];
+
+    products.forEach((p, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = p.name;
+      productSel.appendChild(opt);
+    });
+
+    function loadProduct(index) {
+      const product = products[index];
+      if (glassesModel) scene.remove(glassesModel);
+      loader.load(product.model, (gltf) => {
+        glassesModel = gltf.scene;
+        scene.add(glassesModel);
+      });
+    }
+
+    productSel.addEventListener('change', () => loadProduct(productSel.value));
+    buyBtn.addEventListener('click', () => {
+      const product = products[productSel.value];
+      window.open(product.url, '_blank');
+    });
+
+    const faceMesh = new FaceMesh({ locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}` });
+    faceMesh.setOptions({ maxNumFaces: 1, refineLandmarks: true, minDetectionConfidence: 0.5, minTrackingConfidence: 0.5 });
+    faceMesh.onResults((results) => {
+      if (!glassesModel || !results.multiFaceLandmarks.length) return;
+      const lm = results.multiFaceLandmarks[0];
+      const L = lm[127], R = lm[356], N = lm[168];
+      const vw = renderer.domElement.clientWidth, vh = renderer.domElement.clientHeight;
+      const Lx = (1 - L.x) * vw, Ly = L.y * vh;
+      const Rx = (1 - R.x) * vw, Ry = R.y * vh;
+      const Nx = (1 - N.x) * vw, Ny = N.y * vh;
+      const midX = (Lx + Rx) / 2, midY = (Ly + Ry) / 2;
+      const faceW = Math.hypot(Rx - Lx, Ry - Ly);
+      const zRot = Math.atan2(Ry - Ly, Rx - Lx);
+      const s = (faceW * 1.12) / 200;
+      glassesModel.position.set(midX, midY, 10);
+      glassesModel.scale.setScalar(s);
+      glassesModel.rotation.set(0, 0, zRot);
+    });
+
+    const cam = new Camera(video, {
+      onFrame: async () => { await faceMesh.send({ image: video }); },
+      width: 640,
+      height: 480,
+      facingMode: 'user'
+    });
+    cam.start();
+
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, cameraOrtho);
+    }
+    loadProduct(0);
+    animate();
+  </script>
+</body>
+</html>
